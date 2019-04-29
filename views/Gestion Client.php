@@ -1,12 +1,25 @@
 <?PHP
+
+include "../entities/client.php";
 include "../core/carteC.php";
 include "../core/clientCF.php";
+include "../core/demandeCF.php";
 
 $carte1C=new carteC();
 $listecartes=$carte1C->affichercartes();
 $client1C=new clientC();
 $listeclients=$client1C->afficherclients();
+$demande1C=new demandeC();
+$listedemandes=$demande1C->afficherdemandes();
 
+$numclients=$listeclients->rowCount();
+$numcartes=$listecartes->rowCount();
+$numdemandes=$listedemandes->rowCount();
+
+
+
+
+//*/
 
 //var_dump($listeclients->fetchAll());
 ?>
@@ -107,7 +120,7 @@ $listeclients=$client1C->afficherclients();
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
+                    <a href="login.php"><img src="images/user.png" width="48" height="48" alt="User" /></a>
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lamia Marzouki</div>
@@ -121,12 +134,7 @@ $listeclients=$client1C->afficherclients();
              <div class="menu">
                 <ul class="list">
                     <li class="header">Navigation principale</li>
-                    <li >
-                        <a href="index.html">
-                            <i class="material-icons">home</i>
-                            <span>Mise En page</span>
-                        </a>
-                    </li>
+                    
                     <li>
                         <a href="Statistique.html">
                             <i class="material-icons">text_fields</i>
@@ -149,7 +157,7 @@ $listeclients=$client1C->afficherclients();
                    
                     <li class="active">
                         <a href="gestion client.html">
-                            <i class="material-icons">swap_calls</i>
+                            <i class="material-icons">face</i>
                             <span>Gestion des Clients</span>
                         </a>
                     </li>
@@ -188,6 +196,71 @@ $listeclients=$client1C->afficherclients();
                 <h2>Gestion de Client</h2>
             </div>
 
+ <!-- Headings -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                Informations générales :
+                            </h2>
+                            
+                        </div>
+                                                <div class="body">
+
+                         <form name="f">
+                            
+                        <table id="t01" style="border: none;">
+                       
+  
+  <tr style="border: none;">
+    <td style="border: none;">
+        <div class="info-box bg-indigo hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons">face</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">CLIENTS</div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $numclients ?>" data-speed="1000" data-fresh-interval="20"><?php echo $numclients ?></div>
+                        </div>
+                    </div>
+    </td>
+     <td style="border: none;">
+        <div class="info-box bg-deep-purple hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons">card_membership</i>
+                        </div>
+                        <div class="content">
+                            <div class="text"> CARTES </div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $numcartes ?>" data-speed="1500" data-fresh-interval="20"><?php echo $numcartes ?></div>
+                        </div>
+                    </div>
+    </td>
+    <td style="border: none;">
+        <div class="info-box bg-purple hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons">email</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">DEMANDES</div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $numdemandes ?>" data-speed="1000" data-fresh-interval="20"><?php echo $numdemandes ?></div>
+                        </div>
+                    </div>
+    </td>
+   
+</tr>
+  
+        </table>
+</form>
+</div>
+
+          </div>
+                    
+         </div>
+
+
+
+            <!-- #END# Headings -->
 
             <!-- Headings -->
             <div class="row clearfix">
@@ -199,17 +272,21 @@ $listeclients=$client1C->afficherclients();
                             </h2>
                             
                         </div>
+                                                <div class="body">
+
                          <form name="f">
-                        <table id="t01">
+
+                        <table id="t01" style="border: none;">
                        
    <tr>
-<td>username</td>
-<td>mail</td>
-<td>password</td>
-<td>tel</td>
-<td>age</td>
-<td>supprimer</td>
-<td>modifier</td>
+<th>username</th>
+<th>mail</th>
+<th>password</th>
+<th>tel</th>
+<th>age</th>
+<th>modifier</th>
+<th>supprimer</th>
+
 </tr>
 
 <?PHP
@@ -218,16 +295,17 @@ foreach($listeclients as $row){
 	<tr>
 	<td><?PHP echo $row['username']; ?></td>
 	<td><?PHP echo $row['mail']; ?></td>
-	<td><?PHP echo $row['password']; ?></td>
+	<td ><p style="font-size: 4px;"><?PHP echo $row['password']; ?></p></td>
 	<td><?PHP echo $row['tel']; ?></td>
 	<td><?PHP echo $row['age']; ?></td>
-	<td><form method="POST" action="supprimerclient.php">
-	<input type="submit" name="supprimer" value="supprimer">
-	<input type="hidden" value="<?PHP echo $row['username']; ?>" name="username">
-	</form>
-	</td>
-	<td><a href="modifierclient.php?username=<?PHP echo $row['username']; ?>">
+	
+	<td><a href="mClient.php?username=<?PHP echo $row['username']; ?>">
 	Modifier</a></td>
+    <td><form method="POST" action="supprimerclient.php">
+    <input type="submit" name="supprimer" value="supprimer"  class="btn bg-amber waves-effect"  onclick="confirm();">
+    <input type="hidden" value="<?PHP echo $row['username']; ?>" name="username">
+    </form>
+    </td>
 	</tr>
 	<?PHP
 }
@@ -235,6 +313,7 @@ foreach($listeclients as $row){
   
         </table>
 </form>
+</div>
 
           </div>
                     
@@ -243,6 +322,108 @@ foreach($listeclients as $row){
 
 
             <!-- #END# Headings -->
+
+ <!-- Headings -->
+ 
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                Rechercher un client :
+                            </h2>
+                            
+                        </div>
+                                                <div class="body">
+<div>
+    <form method="POST">
+
+    <table style="border :none;">
+    <tr style="border :none;">
+        <td style="border :none;">
+           <input  type="text" class="form-control" id="name" name="rech" placeholder="Nom d utilisateur" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nom d utilisateur'" required
+           oninvalid="this.setCustomValidity('Entrer le nom d utulisateur')"  oninput="this.setCustomValidity('')"> 
+        </td>
+        <td style="border :none;">
+             <input type="submit" name="rechercher" value="Rechercher" class="btn bg-amber waves-effect">
+        </td>
+    </tr>
+</table>
+</form>
+   
+</div>
+
+                         <form name="f">
+                            <?php if (isset($_POST['rech'])){
+                            ?>
+                                
+        
+
+<?php
+$clients=$client1C->recupererclient($_POST['rech']);
+if($clients->rowCount() == 0)
+                                {
+?>
+
+                                    <div class="font-bold col-pink" style="padding-left: 20%;">
+                                       <strong>Utilisateur non touver  !!!  </strong> essai autre Nom d'utulisateur
+                                    </div>
+<?php
+                                }
+ else
+                                {
+
+    foreach($clients as $row){
+?>
+  <table id="t01" style="border: none;">
+                       
+   <tr>
+<th>username</th>
+<th>mail</th>
+<th>password</th>
+<th>tel</th>
+<th>age</th>
+<th>modifier</th>
+<th>supprimer</th>
+
+</tr>
+    <tr>
+    <td><?PHP echo $row['username']; ?></td>
+    <td><?PHP echo $row['mail']; ?></td>
+    <td ><p style="font-size: 4px;"><?PHP echo $row['password']; ?></p></td>
+    <td><?PHP echo $row['tel']; ?></td>
+    <td><?PHP echo $row['age']; ?></td>
+    
+    <td><a href="mClient.php?username=<?PHP echo $row['username']; ?>">
+    Modifier</a></td>
+    <td><form method="POST" action="supprimerclient.php">
+    <input type="submit" name="supprimer" value="supprimer" class="btn bg-amber waves-effect"  onclick="confirm();">
+    <input type="hidden" value="<?PHP echo $row['username']; ?>" name="username">
+    </form>
+    </td>
+    </tr>
+
+
+  
+        </table>
+        <?PHP
+}
+}
+?>
+        <?PHP
+}
+?>
+</form>
+</div>
+
+          </div>
+                    
+         </div>
+
+
+
+            <!-- #END# Headings -->
+            
             <!-- Body Copy -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -253,30 +434,45 @@ foreach($listeclients as $row){
                         <div class="body">
                             <table id="t01">
      <tr>
-        <th>type de demande</th>
-        <th>UserName</th>
-        <th>First Name</th> 
-        <th>Last Name</th>
-        <th>Numero de TEL</th>
-        <th>Age</th> 
-        <th>Photo</th>
-    </tr>
-    <tr>
-         <td> .... </td>
-         <td> ... </td>
-         <td> ... </td>
-         <td> ... </td>
-         <td> ...</td>
-         <td> ... </td>
-         <td> ...</td>
+        <th>ID </th>
+        <th>Nom d'utilisateur</th>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>type de demande</th> 
+        <th>Ajouter Carte</th>
+        <th>Améliorer Carte</th>
+        <th>supprimer Demande</th>
+
     </tr>
 
+    <?PHP
+foreach($listedemandes as $row){
+    ?>
+    <tr>
+    <td><?PHP echo $row['id']; ?></td>
+    <td><?PHP echo $row['username']; ?></td>
+    <td><?PHP echo $row['nom']; ?></td>
+    <td><?PHP echo $row['prenom']; ?></td>
+    <td><b><?PHP echo $row['type']; ?></b></td>
+
+   <td><a href="?action=<?php echo $row['username']; ?>#zizi">
+    <?php if($row['type']=="Nouvelle Carte"){ echo 'Ajouter' ;}?></a></td>
+
+    <td><a href="?action=<?php echo $row['username']; ?>#mimi<?php  ?>">
+    <?php if($row['type']=="Améliorer") { echo 'Améliorer' ;}?></a></td>
+
+    <td><form method="POST" action="supprimerdemande.php">
+    <input type="submit" name="supprimer" value="Refuser" class="btn bg-amber waves-effect"   onclick="confirm();">
+    <input type="hidden" value="<?PHP echo $row['username']; ?>" name="username">
+    </form>
+    </td>
+    </tr>
+    <?PHP
+}
+?>
+
     </table>
-       <div class="label">
-                     <label ><input type="button" name="Ajouter" value="Ajouter" class="button"></label>
-                     <label ><input type="button" name="Upgrade" value="Upgrade" class="button"></label>
-                     <label ><input type="button" name="Supprimer" value="Supprime" class="button"></label>
-       </div>
+       
                         </div>
                     </div>
                 </div>
@@ -286,36 +482,71 @@ foreach($listeclients as $row){
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
+                        
+                         
+                         <form id="zizi" name="f" method="POST" action="ajoutcarte.php">
+                            <div class="header">
                             <h2>
                                 Ajouter une carte de fidèlité :
                             </h2>
                             
                         </div>
-                         <form name="f" method="POST" action="ajoutcarte.php">
+
+ <?php
+ $c1='';
+ $c2='';
+ $c3='';
+ $c4='';
+ $c5=''; 
+ $c6=''; 
+ 
+
+if (isset($_GET['action'])){
+
+ $client77=$client1C->recupererclient($_GET['action']); 
+ 
+
+
+foreach($client77 as $row){
+    $c1=$row['username'];
+    $c2=$row['mail'];
+    $c3=$row['tel'];
+    $c4=$row['age'];
+
+}
+
+
+$demande77=$demande1C->recupererdemande($_GET['action']); 
+
+ 
+foreach($demande77 as $row){
+    $c5=$row['nom'];
+    $c6=$row['prenom'];
+
+}
+}
+
+    ?>
+
                         <table id="t01">
                        
-    <tr><td>Nom d'utulisateur</td></p><td><input type="text" name="username"></td></tr>
-        <tr><td>E-mail</td></p><td><input type="email" name="mail" placeholder="Exemple@yyy.xxx"></td></tr>
-
-    <tr><td>Type</td></p><td><input list="browsers" name="type">
-<datalist id="browsers">
-  <option value="Bronze">
-  <option value="Silver">
-  <option value="Gold">
-</datalist></td></tr>
-    <te><td>Nom</td><td><input type="text" name="nom"></td></tr>
-    <tr><td>Prenom</td></p><td><input type="text" name="prenom"></td></tr>
-    <te><td>Numero de telephone</td><td><input type="number" name="tel"></td></tr>
-    <tr><td>Age</td></p><td><input type="date" name="age"></td></tr>
+    <tr><td>Nom d'utulisateur</td></p><td><input class="form-control" type="text" value="<?PHP echo $c1 ; ?>" name="username" readonly></td></tr>
+    <tr><td>E-mail</td></p><td><input class="form-control" type="email" name="mail" value="<?PHP echo $c2; ?>" placeholder="Exemple@yyy.xxx" readonly></td></tr>
+</td></tr>
+    <tr><td>Nom</td><td><input class="form-control" type="text" name="nom" value="<?PHP echo $c5; ?>" readonly></td></tr>
+    <tr><td>Prenom</td></p><td><input class="form-control" type="text" name="prenom" value="<?PHP echo $c6; ?>" readonly></td></tr>
+    <tr><td>Numero de telephone</td><td><input class="form-control" type="number" name="tel" value="<?PHP echo $c3; ?>" readonly></td></tr>
+    <tr><td>Age</td></p><td><input class="form-control" type="date" name="age" value="<?PHP echo $c4; ?>" readonly></td></tr>
     	
   </table>
-             <label class="label2"><input type="submit" name="Ajouter"  onclick="test();" value="Crée un Carte" class="button"></label>
+
+  <br>
+             <label class="label2"><input  type="submit" name="Ajouter"  onclick="test2();" value="Crée un Carte" class="btn bg-amber waves-effect" style="width: 400px;" ></label>
+            
              </form>
                         </div>
                     
             </div>
-
 <!-- Headings -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -330,17 +561,19 @@ foreach($listeclients as $row){
                         <table id="t01">
                        
     <tr>
-         <td>username</td>
-         <td>mail</td>
-         <td>type</td>
-         <td>nom</td>
-         <td>prenom</td>
-         <td>tel</td>
-         <td>age</td>
-         <td>supprimer</td>
-         <td>modifier</td>
+         <th>username</th>
+         <th>mail</th>
+         <th>type</th>
+         <th>nom</th>
+         <th>prenom</th>
+         <th>tel</th>
+         <th>age</th>
+         <th>supprimer</th>
+         <th>modifier</th>
 </tr>
 <?PHP
+
+
 foreach($listecartes as $row){
     ?>
     <tr>
@@ -351,12 +584,14 @@ foreach($listecartes as $row){
     <td><?PHP echo $row['prenom']; ?></td>
     <td><?PHP echo $row['tel']; ?></td>
     <td><?PHP echo $row['age']; ?></td>
-    <td><form method="POST" action="supprimercarte.php">
-    <input type="submit" name="supprimer" value="supprimer">
-    <input type="hidden" value="<?PHP echo $row['username']; ?>" name="username">
-    </form>
+    <td>
+        <form method="POST" action="supprimercarte.php">
+            <input type="submit" name="supprimer" value="supprimer" class="btn bg-amber waves-effect"   onclick="confirm();" >
+            <input type="hidden" value="<?PHP echo $row['username']; ?>" name="username">
+        </form>
     </td>
-    <td><a href="modifiercarte.php?username=<?PHP echo $row['username']; ?>">
+    <td>
+    <a href="modifierCarte.php?username=<?PHP echo $row['username']; ?>">
     Modifier</a></td>
     </tr>
     <?PHP
@@ -377,23 +612,230 @@ foreach($listecartes as $row){
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
+                       
+                        
+
+
+                        <form id="mimi" method="POST"  >
+                             <div class="header">
                             <h2>
                                 UPGRADE :
                             </h2>
                         </div>
-                        <figure class="figure"><img src="images/goldclient.png" alt="gold  client"  width="150" height="150" class="img"><figcaption><input type="radio" value="reponse_1" name="choix1"> Gold Client  </figcaption></figure>
-                        <figure class="figure"><img src="images/silverclient.png" alt="gold  client"  width="150" height="150" class="img"><figcaption><input type="radio" value="reponse_2" name="choix2"> Silver Client </figcaption></figure>
-                        <figure class="figure"><img src="images/bronzeclient.png" alt="gold  client"  width="150" height="150" class="img"><figcaption><input type="radio" value="reponse_3" name="choix3"> Bronze Client  </figcaption></figure>
-                                             <label class="label3"  ><input type="button" name="Upgrade" value="Upgrade" class="button"></label>
+                        <figure class="figure"><img src="images/goldclient.png" alt="gold  client"  width="150" height="150" class="img">
+                            <figcaption>
+                            <input type="checkbox" value="Gold" name="choix1">Gold Client</input>
+                        </figcaption>
+                    </figure>
+                        <figure class="figure">
+                            <img src="images/silverclient.png" alt="gold  client"  width="150" height="150" class="img">
+                            <figcaption>
+                                <input type="checkbox" value="Silver" name="choix2"> Silver Client </input>
+                            </figcaption>
+                        </figure>
+                                             <label class="label3"  ><input type="submit" name="Upgrade" value="Upgrade" class="btn bg-amber waves-effect"
+                                             style="width: 320px;" onClick="document.location.reload(true)"></label>
 
+
+</form>
+
+
+                     <?php 
+                         if ((isset($_POST['choix1']))){
+                         $listecartes=$carte1C->ameliorercarte($_POST['choix1'],$_GET['action']);
+                         $demandeC=new demandeC();
+
+                         $demandeC->supprimerdemande($_GET['action']);
+
+
+
+                     }
+                     else if ((isset($_POST['choix2']))){
+                         $listecartes=$carte1C->ameliorercarte($_POST['choix2'],$_GET['action']);
+                         $demandeC=new demandeC();
+
+                         $demandeC->supprimerdemande($_GET['action']);
+
+
+                     }
+                    
+
+                     ?>
 
                     </div>
                 </div>
             </div>
             <!-- #END# Text Styles -->
+
+
+
+            <!-- Unordered List -->
+            <div class="row clearfix">
+
+
+
+                <!-- Gold Cards Zone -->
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card">
+ <?php
+         $type='Gold';
+         $tricartes=$carte1C->rechercherListecartes($type);
+         $gol=$tricartes->rowCount();
+?>
+                        <div class="header">
+                           <div class="info-box bg-amber hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons">brightness_high</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Gold Cards</div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $gol ?>" data-speed="1000" data-fresh-interval="20"><?php echo $gol ?></div>
+                        </div>
+                    </div>         
+                        </div>
+                       
+                     <div class="body">
+    <table id="t01">
+                       
+    <tr>
+         <th>username</th>
+         <th>mail</th>
+         
+</tr>
+  <?php
+        foreach($tricartes as $row){
+    ?>
+    <tr>
+    <td><?PHP echo $row['username']; ?></td>
+    <td><?PHP echo $row['mail']; ?></td>
+</tr>
+   <?PHP
+}
+?>
+</table>
+
+
+</div>
+ 
+                        </div>
+                    </div>
+
+
+
+
+
+
+                <!-- Silver Cards Zone -->
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card">
+                         <?php
+
+         $type='Silver';
+         $tricartes=$carte1C->rechercherListecartes($type);
+         $sil=$tricartes->rowCount();
+
+        ?>
+                        <div class="header">
+                    <div class="info-box bg-grey hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons">brightness_medium</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Silver Cards</div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $sil ?>" data-speed="1000" data-fresh-interval="20"><?php echo $sil ?></div>
+                        </div>
+                    </div>                            
+                        
+                        </div>
+                        <div class="body">
+                            <table id="t01">
+                            
+                       
+    <tr>
+         <th>username</th>
+         <th>mail</th>
+         
+</tr>
+  <?php
+foreach($tricartes as $row){
+    ?>
+
+    <tr>
+    <td><?PHP echo $row['username']; ?></td>
+    <td><?PHP echo $row['mail']; ?></td>
+</tr>
+<?php
+}
+?>
+</table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+                <!-- Bronze Cards Zone -->
+
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card">
+          <?php
+         $type='Bronze';
+         $tricartes=$carte1C->rechercherListecartes($type);
+        $bro=$tricartes->rowCount();
+        
+    ?>
+                        <div class="header">
+
+     
+                           <div class="info-box bg-brown hover-zoom-effect">
+                        <div class="icon">
+                            <i class="material-icons">brightness_low</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Bronze Cards</div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $bro ?>" data-speed="1000" data-fresh-interval="20"><?php echo $bro ?></div>
+                        </div>
+                    </div>
+                           
+                        </div>
+                        <div class="body">
+                             <table id="t01">
+                       
+    <tr>
+         <th>username</th>
+         <th>mail</th>
+         
+</tr>
+  
+<?php foreach($tricartes as $row){
+    ?>
+    <tr>
+    <td><?PHP echo $row['username']; ?></td>
+    <td><?PHP echo $row['mail']; ?></td>
+</tr>
+<?PHP
+}
+?>
+</table>
+                        </div>
+  
+                    </div>
+                </div>
+
+            </div>
            
-            
+            </div>
+
+
+
         </div>
     </section>
     

@@ -1,4 +1,26 @@
-<html>
+<?php
+session_start();
+
+include "../entities/client.php";
+include "../core/clientC.php";
+include "../core/carteCF.php";
+
+$carte1C=new carteC();
+$cartes=$carte1C->recuperercarte($_SESSION['username']);
+
+	$clientC=new clientC();
+    $result=$clientC->recupererclient($_SESSION['username']);
+	foreach($result as $row){
+		$username=$row['username'];
+		$mail=$row['mail'];
+		$password=$row['password'];
+		$tel=$row['tel'];
+		$age=$row['age'];
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +38,8 @@
   <link rel="stylesheet" type="text/css" href="mycss.css">
 
   <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="mycss2.css">
+
   <script type="text/javascript" src="myjs.js"></script>
 </head>
 <body>
@@ -33,42 +57,32 @@
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item active"><a class="nav-link" href="index.html">Accueil</a></li>
+              <li class="nav-item "><a class="nav-link" href="index.html">Accueil</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">cosmétique naturelle</a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
-                  <li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
-                  <li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
-                  <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-                  <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-                </ul>
+                
 							</li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">Blog</a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                  <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-                </ul>
+                
 							</li>
-							<li class="nav-item submenu dropdown">
+							
+              <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Compte</a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="login.html">Connexion</a></li>
-                  <li class="nav-item"><a class="nav-link" href="register.html">inscription</a></li>
-                  <li class="nav-item"><a class="nav-link" href="tracking-order.html">suivi</a></li>
+                  aria-expanded="false">Contact</a>
+ <ul class="dropdown-menu">
+                  <li class="nav-item"><a class="nav-link" href="Contact.php">A propos de nous</a></li>
+                  <li class="nav-item"><a class="nav-link" href="register.html">service AV</a></li>
+
                 </ul>
               </li>
-              <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
             </ul>
 
             <ul class="nav-shop">
-              <li class="nav-item"><button><i class="ti-search"></i></button></li>
-              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
-              <li class="nav-item"><a class="button button-header" href="#">Acheter</a></li>
+              <li class="nav-item"><a href="#"><button><i class="ti-shopping-cart"></i></button></a> </li>
+              <li class="nav-item"><a  href="compte.php"><img src="img/<?php echo $row['photo']?>" width="70" heigth="70"></a><center><p><strong><?php echo $row['username']?></strong></p></strong></center>
             </ul>
           </div>
         </div>
@@ -101,57 +115,175 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="login_box_img">
-						<div class="hover">
-							<h4>Voici vos Données <br> <br>  </h4>
 
-							<?PHP
-include "../entities/client.php";
-include "../core/clientC.php";
-if (isset($_POST["username"]))
-{
-$client1C=new clientC();
-$result=$client1C->recupererclient($_POST["username"]);
-?>
-<from>
+						<div class="hover">
+														    <a href="login.php"><input type="submit" name="logout" value="Deconnexion" class="button"></a>
+<br><br>
+							<h4>Voici vos Données <br> <br>  </h4>
+									
 									<table >
 										
 										<tr><th><b>Nom d'utulisateur</b></th><td><?PHP echo $row['username']; ?></td></tr>
-										<tr><th><b>E-mail</b></th><td><?PHP echo $row['mail']; ?></td></tr>
-										<tr><th><b>Password</b></th><td><?PHP echo $row['password']; ?></td></tr>
-										<tr><th><b>Numero de telephone</b></th><td><?PHP echo $row['tel']; ?></td></tr>
-										<tr><th><b>Date de naissance</b></th><td><?PHP echo $row['age']; ?></td></tr>
+										<tr><th><b>E-mail</b></th><td><?PHP echo $mail; ?></td></tr>
+										<tr><th><b>Numero de telephone</b></th><td><?PHP echo $tel; ?></td></tr>
+										<tr><th><b>Date de naissance</b></th><td><?PHP echo $age; ?></td></tr>
+										
+
+
 										
     							    </table>
-    							</form>
-    <?PHP
-	}
+   <?php
+}
+?>
+    					   <br/><br/>
+							    <a href="mclientper.php?username=<?PHP echo $row['username']; ?>">	<input type="submit" name="modifier" value="Modifier" class="button"></a>
 
-     ?>
-							
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
-						<h3>Connectez-vous pour entrer</h3>
-						<form class="row login_form" action="#/" id="contactForm" name="f" >
+						<h3>demande un Carte de fidelité </h3>
+						<form class="simple-form" method="POST" action="ajoutdemande.php" id="contactForm" name="f"  >
+
+							
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="namee" placeholder="Nom d utilisateur" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nom d utilisateur'">
+								<input type="text" class="form-control" id="name" name="nom" placeholder="Nom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nom'"  pattern="^[a-zA-Z]+$" title="Le nom doit contenir des lettres seulement" oninvalid="this.setCustomValidity('Le nom doit contenir des lettres seulement')"  oninput="this.setCustomValidity('')" required>
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="name" name="pwd" placeholder="Mot de passe" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mot de passe'">
+								<input type="text" class="form-control" id="name" name="prenom" placeholder="Prenom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Prenom'" pattern="^[a-zA-Z]+$" title="Le prenom doit contenir des lettres seulement" oninvalid="this.setCustomValidity('Le prenom doit contenir des lettres seulement')"  oninput="this.setCustomValidity('')" required>
 							</div>
 							<div class="col-md-12 form-group">
-								<div class="creat_account">
-									<input type="checkbox" id="f-option2" name="selector">
-									<label for="f-option2">Rester connecté</label>
-								</div>
+								<input type="hidden" class="form-control" id="name" name="username" value="<?PHP echo $username; ?>" placeholder="Nom d'utulisateur " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nom d\'utulisateur">
 							</div>
 							<div class="col-md-12 form-group">
-								<button type="button" value="submit" class="button button-login w-100" onclick="test();">Se connecter</button>
-								<a href="#">Mot de passe oublié ?</a>
+								<select  name="type" >
+<?php  if ($cartes->rowCount()==0) {
+	# code...
+?>
+<option>Nouvelle Carte</option>
+<?php
+}
+?>
+<option>Améliorer</option>
+</select>
+							</div>
+							
+ <pre><br> </pre>
+							<div class="col-md-12 form-group">
+								<input type="submit" name="demande" value="demander" class="button button-login w-100" style="color: #cc9900; color: white ;border-radius: 20px; " >
 							</div>
 						</form>
+						
+						<?php   
+if ($cartes->rowCount()!=0)
+ {
+	# code...
+
+						 ?>
+						
+							<input type="submit" value="Consulter Votre Carte de fidélité" class="button button-login w-100" onclick="document.getElementById('id01').style.display='block'" >
+
+								
+
+								<div id="id01" class="modal">
+  
+  <form class="modal-content animate" action="login.php">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+     
+    </div>
+
+    <div class="container">
+      <label for="uname" style="color:white; font-size: 20px;"><b>Cette compte n est pas Confirmée</b></label>
+       <br>
+
+      <h2 style="color: #cc9900;"> Voici Votre Carte de fidélité</h2>
+      <br>
+    <?PHP
+
+
+foreach($cartes as $row){
+	if ($row['type']=='Gold'){
+
+	?>
+
+    <table style="border:5px solid #cc9900; box-shadow: 1px 2px 3px; background-color: rgb(255, 255, 0 , 0.5)">
+
+<?php
+}
+    ?>
+
+     <?PHP
+
+
+	if ($row['type']=='Silver'){
+
+	?>
+
+    <table style="border:5px solid #cc9900; box-shadow: 1px 2px 3px; background-color: rgb(204, 204, 204,0.5)">
+
+<?php
+}
+    ?>
+
+     <?PHP
+
+
+	if ($row['type']=='Bronze'){
+
+	?>
+
+    <table style="border:5px solid #cc9900; box-shadow: 1px 2px 3px; background-color: rgb(128, 77, 0 , 0.5)">
+
+<?php
+}
+    ?>
+      	<tr class="table">
+         <th>username</th>
+         <th>mail</th>
+         <th>type</th>
+         <th>nom</th>
+         
+</tr>
+
+     <tr class="table">
+    <td><?PHP echo $row['username']; ?></td>
+    <td><?PHP echo $row['mail']; ?></td>
+    <td><?PHP echo $row['type']; ?></td>
+    <td><?PHP echo $row['nom']; ?></td>
+   
+      
+    </tr>
+
+    <tr class="table">
+    	<th>prenom</th>
+         <th>tel</th>
+         <th>age</th>
+         <th></th>
+    </tr>
+
+    <tr class="table">
+    	 <td><?PHP echo $row['prenom']; ?></td>
+    <td><?PHP echo $row['tel']; ?></td>
+    <td><?PHP echo $row['age']; ?></td>
+    <td></td>
+    </tr>
+    </table> 
+
+    <?php
+    }
+    ?> 
+
+    <div class="container" >
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
+  </form>
+</div> 
+
+<?php
+}
+?>
 					</div>
 				</div>
 			</div>
@@ -261,5 +393,3 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="js/main.js"></script>
 </body>
 </html>
-
-

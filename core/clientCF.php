@@ -120,7 +120,7 @@ try{
 
 
 	function recupererclient($username){
-		$sql="SELECT * from client where username=$username";
+		$sql="SELECT * from client where username='$username'";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);

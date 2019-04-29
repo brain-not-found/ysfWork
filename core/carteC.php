@@ -84,7 +84,7 @@ class carteC {
 
 
 	function modifiercarte($carte,$username){
-		$sql="UPDATE carte SET username=:usernamen, mail=:mail,type=:type,nom=:nom,prenom:=prenom,tel=:tel,age=:age WHERE username=:username";
+			$sql="UPDATE carte SET username=:usernamen,mail=:mail,type=:type,nom=:nom,prenom=:prenom,tel=:tel,age=:age WHERE username=:username";
 		
 		$db = config::getConnexion();
 		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
@@ -101,7 +101,7 @@ try{
         //$photo=$carte->getphoto();
 
 
-		$datas = array(':usernamen'=>$usernamen, ':username'=>$username, ':mail'=>$mail,':type'=>$type,':tel'=>$tel,':age'=>$age);
+		$datas = array(':usernamen'=>$usernamen, ':username'=>$username, ':mail'=>$mail,':type'=>$type,':nom'=>$nom,':prenom'=>$prenom,':tel'=>$tel,':age'=>$age);
 		$req->bindValue(':usernamen',$usernamen);
 		$req->bindValue(':username',$username);
 		$req->bindValue(':mail',$mail);
@@ -129,7 +129,7 @@ try{
 
 
 	function recuperercarte($username){
-		$sql="SELECT * from carte where username=$username";
+		$sql="SELECT * from carte where username='$username'";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);
@@ -142,8 +142,8 @@ try{
 	
 
 
-	/*function rechercherListecartes($tarif){
-		$sql="SELECT * from carte where tel=$tarif";
+	function rechercherListecartes($type){
+		$sql="SELECT * from carte where type='$type'";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);
@@ -152,10 +152,42 @@ try{
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());
         }
-	}*/
+	}
 
 
+function ameliorercarte($type,$username){
+			$sql="UPDATE carte SET type=:type WHERE username=:username";
+		
+		$db = config::getConnexion();
+		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
+try{		
+        $req=$db->prepare($sql);
+        
+        //$photo=$carte->getphoto();
 
+
+		$datas = array(':username'=>$username,':type'=>$type);
+		$req->bindValue(':username',$username);
+		$req->bindValue(':type',$type);
+		
+		//$req->bindValue(':photo',$photo);
+
+		
+		
+            $s=$req->execute();
+			
+           // header('Location: index.php');
+        }
+        catch (Exception $e){
+            echo " Erreur ! ".$e->getMessage();
+   echo " Les datas : " ;
+  print_r($datas);
+        }
+		
+	}
 }
+
+
+
 
 ?>

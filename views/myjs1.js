@@ -1,15 +1,26 @@
-function test(){
-var email = f.email.value;
+function confirm(){
+var answer = confirm("Supprimer")
+if (answer) {
+    //some code
+}
+else {
+    //some code
+}
+}
+
+
+function test2(){
+
+var login = f.username.value;
+var email = f.mail.value;
 var nom = f.nom.value;
 var prenom = f.prenom.value;
-var login = f.login.value;
-var typee = f.typee.value;
+var typee = f.type.value;
 var age = f.age.value;
 var tel = f.tel.value;
-var img = f.file.value;
 
 
-if( email.length== 0)
+if( login.length== 0)
 {
 alert("saisir l'E-mail");
 }
@@ -37,21 +48,17 @@ else if(age.length== 0)
 {
 alert("saisir l'age");	
 }
-else if(img.length== 0)
-{
-alert("saisir l'image");	
-}
+
 else
 {
 alert('ajout avec succées') ;
-f.email.value="";
+f.mail.value="";
 f.nom.value="";
-f.prenom.value="";
+f.username.value="";
 f.login.value="";
-f.typee.value="";
+f.type.value="";
 f.age.value="";
 f.tel.value="";
-f.file.value="";
 }
 
 }

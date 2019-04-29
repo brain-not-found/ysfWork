@@ -16,7 +16,7 @@ class clientC {
 
 
 	function ajouterclient($client){
-		$sql="insert into client (username,mail,password,tel,age) values (:username, :mail,:password,:tel,:age)";
+		$sql="insert into client (username,mail,password,tel,age,photo) values (:username, :mail,:password,:tel,:age,:photo)";
 		$db = config::getConnexion();
 		
 		try{
@@ -27,14 +27,14 @@ class clientC {
         $password=$client->getpassword();
         $age=$client->getage();
         $tel=$client->gettel();
-        //$photo=$client->getphoto();
-       
+        $photo=$client->getphoto();
+        $hash=password_hash($password,PASSWORD_DEFAULT);
 		$req->bindValue(':username',$username);
 		$req->bindValue(':mail',$mail);
-		$req->bindValue(':password',$password);
+		$req->bindValue(':password',$hash);
 		$req->bindValue(':tel',$tel);
 		$req->bindValue(':age',$age);
-		//$req->bindValue(':photo',$photo);
+		$req->bindValue(':photo',$photo);
 
 		
             $req->execute();
@@ -80,7 +80,7 @@ class clientC {
 
 
 	function modifierclient($client,$username){
-		$sql="UPDATE client SET username=:usernamen,mail=:mail,password=:password,tel=:tel,age=:age WHERE username=:username";
+		$sql="UPDATE client SET username=:usernamen,mail=:mail,password=:password,tel=:tel,age=:age,photo=:photo WHERE username=:username";
 		
 		$db = config::getConnexion();
 		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
@@ -92,17 +92,17 @@ try{
         $password=$client->getpassword();
         $tel=$client->gettel();
         $age=$client->getage();
-        //$photo=$client->getphoto();
+        $photo=$client->getphoto();
 
 
-		$datas = array(':usernamen'=>$usernamen, ':username'=>$username, ':mail'=>$mail,':password'=>$password,':tel'=>$tel,':age'=>$age);
+		$datas = array(':usernamen'=>$usernamen, ':username'=>$username, ':mail'=>$mail,':password'=>$password,':tel'=>$tel,':age'=>$age,':photo'=>$photo);
 		$req->bindValue(':usernamen',$usernamen);
 		$req->bindValue(':username',$username);
 		$req->bindValue(':mail',$mail);
 		$req->bindValue(':password',$password);
 		$req->bindValue(':tel',$tel);
 		$req->bindValue(':age',$age);
-		//$req->bindValue(':photo',$photo);
+		$req->bindValue(':photo',$photo);
 
 		
 		
@@ -120,10 +120,13 @@ try{
 
 
 
-	function recupererclient($username){
-		$sql="SELECT * from client where username=$username";
+	function recupererclient($username)
+	{
+		$sql="SELECT * FROM client WHERE username='$username' ";
 		$db = config::getConnexion();
+		
 		try{
+
 		$liste=$db->query($sql);
 		return $liste;
 		}
@@ -134,20 +137,67 @@ try{
 	
 
 
-	/*function rechercherListeclients($tarif){
-		$sql="SELECT * from client where tel=$tarif";
+	function recuperermail($mail)
+	{
+$sql="SELECT * FROM client WHERE mail='$mail' ";
 		$db = config::getConnexion();
+		
 		try{
+
 		$liste=$db->query($sql);
 		return $liste;
 		}
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());
         }
-	}*/
+
+	}
+
+    function newpassword($username,$password)
+    {
+    	$sql="UPDATE client SET password=:password WHERE username='$username'";
+    	$db= config::getConnexion();
+
+    	try
+    	{
+    		$req=$db->prepare($sql);
+        $hash=password_hash($password,PASSWORD_DEFAULT);
+		$req->bindValue(':password',$hash);
+		
+		
+		
+            $s=$req->execute();
+    	}
+ 		catch (Exception $e)
+ 		{
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+	
+
+ function confirmcompte($username)
+    {
+    	$sql="UPDATE client SET confirme=:confirme WHERE username='$username'";
+    	$db= config::getConnexion();
+
+    	try
+    	{
+    		$req=$db->prepare($sql);
+    	$confirm="oui";
+		$req->bindValue(':confirme',$confirm);
+		
+            $s=$req->execute();
+    	}
+ 		catch (Exception $e)
+ 		{
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+
 
 
 
 }
+
 
 ?>
