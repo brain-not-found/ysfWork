@@ -284,7 +284,6 @@ $numdemandes=$listedemandes->rowCount();
 <th>password</th>
 <th>tel</th>
 <th>age</th>
-<th>modifier</th>
 <th>supprimer</th>
 
 </tr>
@@ -299,8 +298,6 @@ foreach($listeclients as $row){
 	<td><?PHP echo $row['tel']; ?></td>
 	<td><?PHP echo $row['age']; ?></td>
 	
-	<td><a href="mClient.php?username=<?PHP echo $row['username']; ?>">
-	Modifier</a></td>
     <td><form method="POST" action="supprimerclient.php">
     <input type="submit" name="supprimer" value="supprimer"  class="btn bg-amber waves-effect"  onclick="confirm();">
     <input type="hidden" value="<?PHP echo $row['username']; ?>" name="username">
@@ -441,6 +438,7 @@ if($clients->rowCount() == 0)
         <th>type de demande</th> 
         <th>Ajouter Carte</th>
         <th>Améliorer Carte</th>
+        <th>Modifier Carte</th>
         <th>supprimer Demande</th>
 
     </tr>
@@ -460,6 +458,9 @@ foreach($listedemandes as $row){
 
     <td><a href="?action=<?php echo $row['username']; ?>#mimi<?php  ?>">
     <?php if($row['type']=="Améliorer") { echo 'Améliorer' ;}?></a></td>
+
+    <td><a href="modifierCarte.php?username=<?php echo $row['username']; ?>">
+    <?php if($row['type']=="Modifier") { echo 'Modifier' ;}?></a></td>
 
     <td><form method="POST" action="supprimerdemande.php">
     <input type="submit" name="supprimer" value="Refuser" class="btn bg-amber waves-effect"   onclick="confirm();">
@@ -530,7 +531,7 @@ foreach($demande77 as $row){
 
                         <table id="t01">
                        
-    <tr><td>Nom d'utulisateur</td></p><td><input class="form-control" type="text" value="<?PHP echo $c1 ; ?>" name="username" readonly></td></tr>
+    <tr><td>Nom d'utulisateur</td></p><td><input  class="form-control" type="text" value="<?PHP echo $c1 ; ?>" name="username" readonly ></td></tr>
     <tr><td>E-mail</td></p><td><input class="form-control" type="email" name="mail" value="<?PHP echo $c2; ?>" placeholder="Exemple@yyy.xxx" readonly></td></tr>
 </td></tr>
     <tr><td>Nom</td><td><input class="form-control" type="text" name="nom" value="<?PHP echo $c5; ?>" readonly></td></tr>
@@ -569,7 +570,6 @@ foreach($demande77 as $row){
          <th>tel</th>
          <th>age</th>
          <th>supprimer</th>
-         <th>modifier</th>
 </tr>
 <?PHP
 
@@ -590,9 +590,7 @@ foreach($listecartes as $row){
             <input type="hidden" value="<?PHP echo $row['username']; ?>" name="username">
         </form>
     </td>
-    <td>
-    <a href="modifierCarte.php?username=<?PHP echo $row['username']; ?>">
-    Modifier</a></td>
+   
     </tr>
     <?PHP
 }
@@ -654,7 +652,7 @@ foreach($listecartes as $row){
                          $listecartes=$carte1C->ameliorercarte($_POST['choix2'],$_GET['action']);
                          $demandeC=new demandeC();
 
-                         $demandeC->supprimerdemande($_GET['action']);
+                         $demandeC->supprimerdemandes($_GET['action']);
 
 
                      }

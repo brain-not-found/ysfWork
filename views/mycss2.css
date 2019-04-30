@@ -25,6 +25,14 @@ color:#b38600;
 border:none;
 }
 
+.tablex td
+{
+background: none;
+color:#b38600; 
+border:none;
+width: 20%;
+
+}
 
 /* Full-width input fields */
 input[name=psw] {
@@ -89,10 +97,13 @@ span.psw {
   left: 35%;
   top: 23%;
   width: 50%; /* Full width */
-  height: 69%; /* Full height */
+  height: 65.5%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  border:10px solid black;
+  border-radius: 80px;
+  opacity: 0.95;
+  box-shadow: 3px 3px 3px;
 }
 
 /* Modal Content/Box 

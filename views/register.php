@@ -23,11 +23,11 @@
 </head>
 <body>
 	<!--================ Start Header Menu Area =================-->
-	<header class="header_area">
+<header class="header_area">
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+          <a class="navbar-brand logo_h" href="main.php"><img src="img/logo.png" alt=""></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon-bar"></span>
@@ -36,7 +36,7 @@
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item "><a class="nav-link" href="index.html">Accueil</a></li>
+              <li class="nav-item "><a class="nav-link" href="main.php">Accueil</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">cosmétique naturelle</a>
@@ -107,27 +107,34 @@
 
 						<form class="simple-form" method="POST" action="ajoutClient.php" id="register_form"  name="ff">
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="username" placeholder="Nom d utilisateur" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nom dutilisateur'" pattern="(.{6,})" title="Le Nom d utilisateur doit contenir au mois 6 characters" oninvalid="this.setCustomValidity('Le Nom d utilisateur doit contenir au mois 6 characters')"  oninput="this.setCustomValidity('')" maxlength="25" required>
+								<input type="text" class="form-control" id="name" name="username" placeholder="Nom d utilisateur" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nom dutilisateur'" pattern="(.{6,})" title="Le Nom d utilisateur doit contenir au mois 6 characters" 
+								oninvalid="this.setCustomValidity('Le Nom d utilisateur doit contenir au mois 6 characters')"  oninput="this.setCustomValidity('')" maxlength="25" required>
 								
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="email" class="form-control" id="email" name="mail" placeholder="Adresse E-mail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Aadresse E-email'" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Ce doit etre un mail (example@domain.xxx)" oninvalid="this.setCustomValidity('Ce doit etre un mail (example@domain.xxx)')"  oninput="this.setCustomValidity('')" required>
+								<input type="email" class="form-control" id="email" name="mail" placeholder="Adresse E-mail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Aadresse E-email'" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Ce doit etre un mail (example@domain.xxx)"
+								 oninvalid="this.setCustomValidity('Ce doit etre un mail (example@domain.xxx)')"  oninput="this.setCustomValidity('')" required>
               </div>
               <div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" pattern="(.{8,})" title="Doit contenir au moins 8 characters"  required>
+								<input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" title="Doit contenir au moins 4 characters et au moins  ( 1 Majuscule ,1 Minuscule , 1 chiffre) "
+								 oninvalid="this.setCustomValidity('Doit contenir au moins 4 characters et au moins  ( 1 Majuscule ,1 Minuscule , 1 chiffre) ')"  oninput="this.setCustomValidity('')" required>
               </div>
               <div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="mot de passe de confirmation" pattern="(.{8,})" title="Doit contenir au moins 8 characters" onfocus="this.placeholder = ''" onblur="this.placeholder = 'mot de passe de confirmation'" required>
+								<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="mot de passe de confirmation" pattern="(.{4,})" title="Doit contenir au moins 4 characters et au moins  ( 1 Majuscule ,1 Minuscule , 1 chiffre) " onfocus="this.placeholder = ''" onblur="this.placeholder = 'mot de passe de confirmation'"
+								 oninvalid="this.setCustomValidity('Doit contenir au moins 4 characters et au moins  ( 1 Majuscule ,1 Minuscule , 1 chiffre) ')"  oninput="this.setCustomValidity('')" required>
 							</div>
               <div class="col-md-12 form-group">
-								<input type="tel" class="form-control" id="tel" name="tel" placeholder="Numéro de Tel" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Numéro de Tel'" pattern=".{8,8}"  title="Le Numéro de Telephone doit contenir  8 chiffre"  required>
+								<input type="tel" class="form-control" id="Number" name="tel" placeholder="Numéro de Tel" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Numéro de Tel'" pattern=".{8,}"  title="Le Numéro de Telephone doit contenir  8 chiffre" maxlength="8" 
+								oninvalid="this.setCustomValidity('Le Numéro de Telephone doit contenir  8 chiffre')"  oninput="this.setCustomValidity('')" required>
               </div>
               <div class="col-md-12 form-group">
 								<input type="date" class="form-control" id="age" name="age" placeholder="Date de naissance" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Date de naissance'"
-								min="1900-01-01" max="2003-12-31"  title="tu doit etre plus que 16 ans" required>
+								min="1900-01-01" max="2003-12-31"  title="tu doit etre plus que 16 ans" 
+								oninvalid="this.setCustomValidity('tu doit etre plus que 16 ans')"  oninput="this.setCustomValidity('')" required>
               </div>
              <div class="col-md-12 form-group">
-								<input type="file" class="form-control" id="photo" name="photo" placeholder="photo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'photo'" accept="image/*" required>
+								<input type="file" class="form-control" id="photo" name="photo" placeholder="photo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'photo'" accept="image/*"
+								oninvalid="this.setCustomValidity('Tu doit impoter une photo')"  oninput="this.setCustomValidity('')" required>
               </div>
               
 							

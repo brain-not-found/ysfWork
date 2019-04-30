@@ -67,13 +67,21 @@ else
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
-					
+					<div class="login_box_img">
+						<div class="hover">
+							<h4>Si tu face de problemes </h4>
+							<p>Tu peux nous contacter Sur la page facebook <strong>Karma company
+							    </strong>ou appler les numéros <br> 
+								    <br>+126 <strong> 20258260 </strong>
+									<br>+126 <strong> 55687890 </strong> </p>
+						</div>
+					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>Saisir Le code de Confirmation</h3>
 
-						<form class="row login_form" method="POST"  id="contactForm" name="f" >
+						<form class="simple-form"  method="POST"  id="contactForm" name="f" >
 							<div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="name" name="code" placeholder="Code de Confirmation" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Code de Confirmation'">
 																							<br/><p class="controle"><?php echo $cond1 ?></p>

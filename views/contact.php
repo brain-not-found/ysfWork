@@ -54,7 +54,7 @@ $cartes=$carte1C->recuperercarte($_SESSION['username']);
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+          <a class="navbar-brand logo_h" href="main.php"><img src="img/logo.png" alt=""></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon-bar"></span>
@@ -63,7 +63,7 @@ $cartes=$carte1C->recuperercarte($_SESSION['username']);
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item "><a class="nav-link" href="index.html">Accueil</a></li>
+              <li class="nav-item "><a class="nav-link" href="main.php">Accueil</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">cosmétique naturelle</a>
@@ -75,8 +75,8 @@ $cartes=$carte1C->recuperercarte($_SESSION['username']);
                 
               </li>
               
-              <li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+              <li class="nav-item submenu dropdown active">
+                <a href="#" class="nav-link dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">Contact</a>
  <ul class="dropdown-menu">
                   <li class="nav-item"><a class="nav-link" href="login.html">A propos de nous</a></li>
@@ -237,8 +237,43 @@ else
                 </table>
                   
               
-                
+              <?php  if ($_SESSION['username']=='') {
+              ?>
+
+              <input type="button"  value="Envoyer le message" onclick="document.getElementById('id01').style.display='block'">
+              <div id="id01" class="modal" style="background-color: #b38600; height:350px; width: 500px; border:10px solid black; opacity: 0.7;  ">
+  <center>
+  <form class="modal-content animate" action="login.php" >
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+     
+    </div>
+
+    <div class="container">
+
+      <h2 style="color: black;"> Tu doit etre Connecter</h2>
+      <br>
+      <div class="container" >
+      <a href="login.php"><button type="button"  class="cancelbtn">Login d'ici</button></a>
+    </div>
+       <div class="container" >
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
+  </form>
+  </center>
+</div>
+
+
+              <?php
+               }
+               else
+               {
+               ?>
               <input type="submit"  value="Envoyer le message">
+              <?php
+               }
+               
+               ?>
            
           </form>
 

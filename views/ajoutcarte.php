@@ -15,7 +15,7 @@ var_dump($carte1);
 $carte1C=new carteC();
 $carte1C->ajoutercarte($carte1);
 $demandeC=new demandeC();
-$demandeC->supprimerdemande($_POST["username"]);
+$demandeC->supprimerdemandes($_POST["username"]);
 header('Location: Gestion Client.php');
 	
 }

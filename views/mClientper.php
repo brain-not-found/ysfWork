@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<<?php 
+session_start();
+ ?>
+
+
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -7,7 +12,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Karma - modifier</title>
     <!-- Favicon-->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/png">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -27,6 +32,10 @@
 
     <!-- Custom Css -->
     <link href="css1/style.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+
+    <link href="mycss2.css" rel="stylesheet">
+
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="css1/themes/all-themes.css" rel="stylesheet" />
@@ -96,12 +105,13 @@
   <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>Gestion de Client</h2>
+                <h2>Modifier Compte</h2>
             </div>
 
 <?PHP
 include "../entities/client.php";
 include "../core/clientC.php";
+include "../core/carteCF.php";
 if (isset($_GET['username'])){
     $clientC=new clientC();
     $result=$clientC->recupererclient($_GET['username']);
@@ -112,6 +122,7 @@ if (isset($_GET['username'])){
         $tel=$row['tel'];
         $age=$row['age'];
         $photo=$row['photo'];
+        }
 
 ?>
             <!-- Headings -->
@@ -120,62 +131,75 @@ if (isset($_GET['username'])){
                     <div class="card">
                         <div class="header">
                             <h2>
-                                modifier le carte de <b><?PHP echo $username ?></b>   :
+                                modifier le compte de <b><?PHP echo $username ?></b>   :
                             </h2>
                             
                         </div>
                                                 <div class="body">
 
 
-                         <form name="f" method="POST">
-                        <table id="t01">
+                         <form name="f" method="POST" class="simple-form" >
+                        <table id="t01" style="border:none;">
                        
-<tr>
+<tr class="tablex" >
 <td>username</td>
-<td><input type="text" name="username" value="<?PHP echo $username ?>"></td>
+<td><input type="text" name="username" value="<?PHP echo $username ?>" class="form-control" pattern="(.{6,})" title="Le Nom d utilisateur doit contenir au mois 6 characters" oninvalid="this.setCustomValidity('Le Nom d utilisateur doit contenir au mois 6 characters')"  oninput="this.setCustomValidity('')" maxlength="25" required></td>
 </tr>
-<tr>
+<tr class="tablex">
 <td>mail</td>
-<td><input type="text" name="mail" value="<?PHP echo $mail ?>"></td>
+<td><input type="text" name="mail" value="<?PHP echo $mail ?>" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Ce doit etre un mail (example@domain.xxx)" oninvalid="this.setCustomValidity('Ce doit etre un mail (example@domain.xxx)')"  oninput="this.setCustomValidity('')" required></td>
 </tr>
-<td>tel </td>
-<td><input type="number" name="tel" value="<?PHP echo $tel ?>"></td>
+<tr class="tablex">
+<td >tel </td>
+<td><input type="tel" name="tel" value="<?PHP echo $tel ?>" class="form-control" pattern=".{8,8}"  title="Le Numéro de Telephone doit contenir  8 chiffre" oninvalid="this.setCustomValidity('Le Numéro de Telephone doit contenir  8 chiffre')"  oninput="this.setCustomValidity('')" required></td>
 </tr>
-<tr>
+<tr class="tablex">
 <td>age</td>
-<td><input type="text" name="age" value="<?PHP echo $age ?>"></td>
+<td><input type="text" name="age" value="<?PHP echo $age ?>" class="form-control" min="1900-01-01" max="2003-12-31"  title="tu doit etre plus que 16 ans" oninvalid="this.setCustomValidity('tu doit etre plus que 16 ans')"  oninput="this.setCustomValidity('')" required></td>
 </tr>
-<tr>
+<tr class="tablex">
 <td>photo</td>
-<td><input type="file" name="photo" value="<?PHP echo $photo ?>"></td>
-</tr>
-<tr>
-<input type="hidden" name="password" value="<?PHP echo $password ?>" >
+<td><input type="file" name="photo" value="<?PHP echo $photo ?>" class="form-control" accept="image/*"
+                                oninvalid="this.setCustomValidity('Tu doit impoter une photo')"  oninput="this.setCustomValidity('')" ></td>
+</tr >
+<tr class="tablex">
+<input type="hidden" name="password" value="<?PHP echo $password ?>" class="form-control" >
 
 
 </table> 
-       <div class="label2">
 
- <input type="submit" name="modifier" value="modifier" class="button">
-<input type="hidden" name="username_ini" value="<?PHP echo $_GET['username'];?>" class="button" >
-      </div>
+<center><input type="submit" name="modifier" value="modifier" class="button button-login w-100" style="height: 50px;"></center>
+<input type="hidden" name="username_ini" value="<?PHP echo $_GET['username'];?>"  >
 </form>
 
 <?PHP
-    }
+    
 }
+
+
 else 
-echo "barra nayik";
+echo "";
+
+
 if (isset($_POST['modifier'])){
-    $client=new client($_POST['username'],$_POST['mail'],$_POST['password'],$_POST['tel'],$_POST['age'],$_POST['photo']);
+    $_SESSION["username"] = trim($_POST['username']);
+    if ($_POST['photo']!='') {
+         $client=new client($_POST['username'],$_POST['mail'],$_POST['password'],$_POST['tel'],$_POST['age'],$_POST['photo']);
     $clientC->modifierclient($client,$_POST['username_ini']);
-    echo $_POST['username_ini'];
+    }
+    else
+    {
+
+    $client=new client($_POST['username'],$_POST['mail'],$_POST['password'],$_POST['tel'],$_POST['age'],$photo);
+    $clientC->modifierclient($client,$_POST['username_ini']);
+    }
+
+  $carteC=new carteC();
+    $carteC->changeusername($username,$_POST['username']);
 }
 
 ?>
-<div class="label2">
- <a href="Compte.php" style="color: white"><input type="submit" name="close" value="Close" class="button"></a>
-</div>
+ <center><a href="Compte.php"><input type="submit" name="close" value="Close" class="button button-login w-100" style="height: 50px;" ></a></center>
 </div>
 
           </div>

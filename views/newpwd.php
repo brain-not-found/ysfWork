@@ -14,7 +14,7 @@ header('Location: login.php');
 }
 else
 {
-	$cond2="Mot de passe non valide";
+	$cond2="Mots de passe non identiques";
 }
 }
 
@@ -60,27 +60,35 @@ else
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
-					
+					<div class="login_box_img">
+						<div class="hover">
+							<h4><b>Félicitation</b> <br><br> maintenant tu peux changer votre mot de passe <br> comme tu veux . </h4>
+						</div>
+					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>Saisir Un nouveau mot de passe </h3>
 
-						<form class="row login_form" method="POST" action="newpwd.php" id="contactForm" name="f" >
+						<form class=" simple-form" method="POST" action="newpwd.php" id="contactForm" name="f" >
 							<div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="name" name="password" placeholder="Mot de pass " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mot de pass'">
+								<input type="password" class="form-control" id="name" name="password" placeholder="Mot de pass " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mot de pass'"
+								pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" title="Doit contenir au moins 4 characters et au moins  ( 1 Majuscule ,1 Minuscule , 1 chiffre) "
+								 oninvalid="this.setCustomValidity('Doit contenir au moins 4 characters et au moins  ( 1 Majuscule ,1 Minuscule , 1 chiffre) ')"  oninput="this.setCustomValidity('')" required>
 																							
 
 							</div>
 
 							<div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="name" name="passwordconf" placeholder="Confirmer Mot de pass" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirmer Mot de pass'">
+								<input type="password" class="form-control" id="name" name="passwordconf" placeholder="Confirmer Mot de pass" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirmer Mot de pass'" 
+								pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" title="Doit contenir au moins 4 characters et au moins  ( 1 Majuscule ,1 Minuscule , 1 chiffre) "
+								 oninvalid="this.setCustomValidity('Doit contenir au moins 4 characters et au moins  ( 1 Majuscule ,1 Minuscule , 1 chiffre) ')"  oninput="this.setCustomValidity('')" required>
 																							<br/><p class="controle"><?php echo $cond2 ?></p>
 
 							</div>
 							
 							<div class="col-md-12 form-group">
-								<input type="submit" value="Changer" class="button button-login w-100" ">
+								<input type="submit" value="Changer" class="button button-login w-100" style="color: black;">
 							</div>
 						</form>
 

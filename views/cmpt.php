@@ -22,7 +22,7 @@ $result=$clientC->recuperermail($_POST['mail']);
 
  $to       = $mail;
 $subject  = 'Compte oublié';
-$message  = 'Hi cher Client Voici votre Nom d\'utilisateur : '. $username ;
+$message  = 'Hi cher Client Voici votre Nom d\'utilisateur : <b>'. $username .'</b>' ;
 $headers  = 'From: karma.company@gmail.com' . "\r\n" .
             'MIME-Version: 1.0' . "\r\n" .
             'Content-type: text/html; charset=utf-8';
@@ -55,7 +55,7 @@ else
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Karma - Mot de passe oublié</title>
+  <title>Karma - Compte oublié</title>
 	  <link rel="icon" href="img/favicon.ico" type="image/png">
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
@@ -76,7 +76,7 @@ else
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+          <a class="navbar-brand logo_h" href="main.php"><img src="img/logo.png" alt=""></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon-bar"></span>
@@ -85,7 +85,7 @@ else
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item "><a class="nav-link" href="index.html">Accueil</a></li>
+              <li class="nav-item "><a class="nav-link" href="main.php">Accueil</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">cosmétique naturelle</a>
@@ -101,7 +101,7 @@ else
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">Contact</a>
  <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="login.html">A propos de nous</a></li>
+                  <li class="nav-item"><a class="nav-link" href="Contact.php">A propos de nous</a></li>
                   <li class="nav-item"><a class="nav-link" href="register.html">service AV</a></li>
                 </ul>
               </li>
@@ -136,19 +136,35 @@ else
 	</section>
 	<!-- ================ end banner area ================= -->
   
+
+
   <!--================Login Box Area =================-->
 	<section class="login_box_area section-margin">
+		
 		<div class="container">
 			<div class="row">
-				
 				<div class="col-lg-6">
+					<div class="login_box_img">
+						<div class="hover">
+							<h4>Si tu face de problemes </h4>
+							<p>Tu peux nous contacter Sur la page facebook <strong>Karma company
+							    </strong>ou appler les numéros <br> 
+								    <br>+126 <strong> 20258260 </strong>
+									<br>+126 <strong> 55687890 </strong> </p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					
 					<div class="login_form_inner">
 						<h3>Saisir vos données</h3>
-
-						<form class="row login_form" method="POST" id="contactForm" name="f" >
+<center>
+						<form class="simple-form"  method="POST" id="contactForm" >
 							
 							<div class="col-md-12 form-group">
-								<input type="email" class="form-control" id="email" name="mail" placeholder="E-mail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'E-mail'">
+								<input type="email" class="form-control" id="email" name="mail" placeholder="E-mail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'E-mail'"
+								pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Ce doit etre un mail (example@domain.xxx)"
+								 oninvalid="this.setCustomValidity('Ce doit etre un mail (example@domain.xxx)')"  oninput="this.setCustomValidity('')" required>
 															<br/><p class="controle"><?php echo $cond1 ?></p>
 
 							</div>
@@ -156,15 +172,19 @@ else
 								
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="submit" value="Envoyer" class="button button-login w-100" onclick="test();">
+								<input type="submit" value="Envoyer" class="button button-login w-100" >
 							</div>
 						</form>
+					</center>
 
 					</div>
 				</div>
 			</div>
+
 		</div>
+
 	</section>
+
 	<!--================End Login Box Area =================-->
 
 

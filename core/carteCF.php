@@ -184,6 +184,28 @@ try{
         }
 		
 	}
+
+
+
+	function changeusername($username,$usernameini)
+    {
+    	$sql="UPDATE carte SET username=:usernameini WHERE username='$username'";
+    	$db= config::getConnexion();
+
+    	try
+    	{
+    		$req=$db->prepare($sql);
+    	$confirm="oui";
+		$req->bindValue(':usernameini',$usernameini);
+		
+            $s=$req->execute();
+    	}
+ 		catch (Exception $e)
+ 		{
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+
 }
 
 

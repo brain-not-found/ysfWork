@@ -33,10 +33,24 @@ class demandeC {
 
 
 	function supprimerdemande($id){
-		$sql="DELETE FROM demande where username=:id";
+		$sql="DELETE FROM demande where id=:id";
 		$db = config::getConnexion();
         $req=$db->prepare($sql);
 		$req->bindValue(':id',$id);
+		try{
+            $req->execute();
+           // header('Location: index.php');
+        }
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+
+	function supprimerdemandes($username){
+		$sql="DELETE FROM demande where username=:username";
+		$db = config::getConnexion();
+        $req=$db->prepare($sql);
+		$req->bindValue(':username',$username);
 		try{
             $req->execute();
            // header('Location: index.php');

@@ -73,6 +73,8 @@ else
   <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
   <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
   <link rel="stylesheet" href="mycss.css">
+    <link rel="stylesheet" href="mycss2.css">
+
 
   <link rel="stylesheet" href="css/style.css">
   <script type="text/javascript" src="myjs.js"></script>
@@ -83,7 +85,7 @@ else
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+          <a class="navbar-brand logo_h" href="main.php"><img src="img/logo.png" alt=""></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon-bar"></span>
@@ -92,7 +94,7 @@ else
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item "><a class="nav-link" href="index.html">Accueil</a></li>
+              <li class="nav-item "><a class="nav-link" href="main.php">Accueil</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">cosmétique naturelle</a>
@@ -108,7 +110,7 @@ else
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">Contact</a>
  <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="login.html">A propos de nous</a></li>
+                  <li class="nav-item"><a class="nav-link" href="Contact.php">A propos de nous</a></li>
                   <li class="nav-item"><a class="nav-link" href="register.html">service AV</a></li>
                 </ul>
               </li>
@@ -134,7 +136,7 @@ else
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
               
-              <li class="breadcrumb-item active" aria-current="page">Recupurer Votre Mot de  passe</li>
+              <li class="breadcrumb-item active" aria-current="page">récupérer Votre Mot de  passe</li>
             </ol>
           </nav>
 				</div>
@@ -147,25 +149,33 @@ else
 	<section class="login_box_area section-margin">
 		<div class="container">
 			<div class="row">
-				
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<div class="hover">
+							<h4>Si tu as oublié Votre nom d'utilisateur  </h4>
+							<br><br><br>
+							<a class="button button-account" href="cmpt.php" style="font-size: 30px;">Taper ici</a>
+
+						</div>
+					</div>
+				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>Saisir vos données</h3>
 
-						<form class="row login_form" method="POST" action="pwd.php" id="contactForm" name="f" >
+						<form class="simple-form"  method="POST" action="pwd.php" id="contactForm" name="f" >
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="username" placeholder="Nom d utilisateur" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nom d utilisateur'">
+								<input type="text" class="form-control" id="name" name="username" placeholder="Nom d utilisateur" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nom d utilisateur'"  title="Entrer votre nom d utulisateur" oninvalid="this.setCustomValidity('Entrer votre nom d utulisateur')"  oninput="this.setCustomValidity('')"required>
 																							<br/><p class="controle"><?php echo $cond2 ?></p>
 
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="email" class="form-control" id="email" name="mail" placeholder="E-mail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'E-mail'">
+								<input type="email" class="form-control" id="email" name="mail" placeholder="E-mail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'E-mail'" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Ce doit etre un mail (example@domain.xxx)"
+								 oninvalid="this.setCustomValidity('Ce doit etre un mail (example@domain.xxx)')"  oninput="this.setCustomValidity('')" required="">
 															<br/><p class="controle"><?php echo $cond1 ?></p>
 
 							</div>
-							<div class="col-md-12 form-group">
-								
-							</div>
+						
 							<div class="col-md-12 form-group">
 								<input type="submit" value="Envoyer" class="button button-login w-100" onclick="test();">
 							</div>

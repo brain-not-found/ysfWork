@@ -48,7 +48,7 @@ $cartes=$carte1C->recuperercarte($_SESSION['username']);
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+          <a class="navbar-brand logo_h" href="main.php"><img src="img/logo.png" alt=""></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon-bar"></span>
@@ -57,7 +57,7 @@ $cartes=$carte1C->recuperercarte($_SESSION['username']);
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item "><a class="nav-link" href="index.html">Accueil</a></li>
+              <li class="nav-item "><a class="nav-link" href="main.php">Accueil</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">cosmétique naturelle</a>
@@ -164,8 +164,14 @@ $cartes=$carte1C->recuperercarte($_SESSION['username']);
 <option>Nouvelle Carte</option>
 <?php
 }
+else
+{
 ?>
+<option>Modifier</option>
 <option>Améliorer</option>
+<?php
+}
+?>
 </select>
 							</div>
 							
@@ -188,15 +194,13 @@ if ($cartes->rowCount()!=0)
 
 								<div id="id01" class="modal">
   
-  <form class="modal-content animate" action="login.php">
+  <form class="modal-content animate" action="login.php" style="color: #b38600;">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
      
     </div>
 
     <div class="container">
-      <label for="uname" style="color:white; font-size: 20px;"><b>Cette compte n est pas Confirmée</b></label>
-       <br>
 
       <h2 style="color: #cc9900;"> Voici Votre Carte de fidélité</h2>
       <br>

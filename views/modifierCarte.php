@@ -108,17 +108,47 @@
                         <?PHP
 include "../entities/carte.php";
 include "../core/carteC.php";
+include "../core/clientCF.php";
+include "../core/demandeCF.php";
+
 if (isset($_GET['username'])){
-    $carteC=new carteC();
-    $result=$carteC->recuperercarte($_GET['username']);
-    foreach($result as $row){
+
+$carteC=new carteC();
+$client1C=new clientC();
+$demande1C=new demandeC();
+    $result1=$client1C->recupererclient($_GET['username']);
+    foreach($result1 as $row){
         $username=$row['username'];
         $mail=$row['mail'];
-        $type=$row['type'];
-        $nom=$row['nom'];
-        $prenom=$row['prenom'];
         $tel=$row['tel'];
         $age=$row['age'];
+                            }
+        $result2=$demande1C->recupererdemande($_GET['username']);
+        $verif=$result2->rowCount();
+if ($verif!=0) {
+
+    foreach($result2 as $row){
+        $idx=$row['id'];
+        $nom=$row['nom'];
+        $prenom=$row['prenom'];
+        }
+                            }
+        else
+        {
+        $idx=666;
+        $nom='Go out';
+        $prenom='Go out';  
+        }
+
+
+     $result3=$carteC->recuperercarte($_GET['username']);
+    foreach($result3 as $row){
+        $type=$row['type'];
+                            }
+
+
+
+
 ?>
 
                         <div class="header">
@@ -160,6 +190,7 @@ if (isset($_GET['username'])){
 <tr>
 <td>age</td>
 <td><input type="text" name="age" value="<?PHP echo $age ?>"></td>
+
 </tr>
 
 </table>
@@ -176,20 +207,20 @@ if (isset($_GET['username'])){
 
    
 
-
  <?PHP
-    }
-}
-else 
-echo "tiiiiiiiiiit";
 
+}
+
+ 
 if (isset($_POST['modifier'])){
     $carte=new carte($_POST['username'],$_POST['mail'],$_POST['type'],$_POST['nom'],$_POST['prenom'],$_POST['tel'],$_POST['age']);
     $carteC->modifiercarte($carte,$_POST['username_ini']);
-    echo $_POST['username_ini'];
+    $demande1C->supprimerdemande($idx);
 }
 
-?> 
+
+
+ ?> 
 <div class="label2">
  <a href="Gestion Client.php" style="color: white"><input type="submit" name="close" value="Close" class="button"></a>
 </div>   
@@ -215,7 +246,6 @@ if (isset($_POST['modifier'])){
                 <!-- #END# Task Info -->
                 <!-- Browser Usage -->
                
-                <!-- #END# Browser Usage -
 
     <!-- Jquery Core Js -->
     <script src="plugins/jquery/jquery.min.js"></script>
